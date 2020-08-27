@@ -122,14 +122,14 @@ dw 'But you wouldnt dare anger Zhaka Mu... ',0
 // ---- OPTIONS ---- //
 // HI-RES DISABLE WARNING
 hires_disable_warning:
-dw 'WARNING: DISABLING HI-RES MODE WILL BREAK THE MOD!',0A,'Zuma',27,'s Revenge! Rejuvenated is designed to be played',0A,'on 1920x1200. Disabling this will not only revert',0A,'the graphical changes, but will make some',0A,'level chutes broken!',0A,0A,'If you are willing to port this mod to x600, please contact',0A,'me on Discord: CrushyGreenRen#1539.',0
+dw 'WARNING: DISABLING HI-RES MODE WILL BREAK THE MOD!',0A,'Zuma',27,'s Revenge! Rejuvenated is designed to be played',0A,'on 1920x1200. Disabling this will not only revert the',0A,'graphical changes, but will make some level chutes misplaced!',0A,'IF YOU ARE IN A CHALLENGE MODE OR IRON FROG GAME,',0A,'YOUR PROGRESS WILL BE LOST!',0A,0A,'If you are willing to port this mod to x600, please contact',0A,'me on Discord: CrushyGreenRen#1539.',0A,'Are you sure you want to disable Hi-Res mode?',0
 
 // ---- CHALLENGE ---- //
 // CHALLENGE INFO: ACE
 challenge_ace_score:
 dw 'Spt.:',0
 
-// ---- INGAME ---- //
+// ---- INGAME ---- // 
 // POWERUP: ACCURACY
 ingame_accuracy_pup:
 dw 'SPEED SHOT',0
