@@ -48,7 +48,9 @@
           <Description>"Base ball points to Console - PopCap DRM"</Description>
           <LastState/>
           <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[ENABLE]
+          <AssemblerScript>// original assembly code by SAO_FB
+
+[ENABLE]
 //code from here to '[DISABLE]' will be used to enable the cheat
 alloc(newmem,2048)
 label(returnhere)
@@ -204,7 +206,10 @@ push ZumasRevenge.exe+56422C
           <Description>"Base ball points to Console - Steam Version"</Description>
           <LastState/>
           <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[ENABLE]
+          <AssemblerScript>// original assembly code by SAO_FB
+// edited by CrushyGreenRen for steam version
+
+[ENABLE]
 //code from here to '[DISABLE]' will be used to enable the cheat
 alloc(newmem,2048)
 label(returnhere)
