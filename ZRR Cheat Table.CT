@@ -102,12 +102,36 @@ lea esi,[eax+edx*2]
           <LastState/>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
-alloc(adv_desc,1000)
-alloc(chl_desc,1000)
-alloc(ext_desc,1000)
+// ------ MEMORY ALLOCATIONS ------ ///
+// ---- MAIN MENU ---- //
+// ADVENTURE MODE DESCRIPTION
+alloc(adv_desc,500)
+// CHALLENGE MODE DESCRIPTION
+alloc(chl_desc,500)
+// EXIT DESCRIPTION
+alloc(ext_desc,500)
+
+// ---- OPTIONS ---- //
+// HI-RES ENABLE WARNING: NOT RECOMMENDED
+alloc(hires_enable_warning_notrec,1000)
+// HI-RES DISABLE WARNING
 alloc(hires_disable_warning,1000)
-alloc(challenge_ace_score,1000)
-alloc(ingame_accuracy_pup,1000)
+
+// ---- CHALLENGE ---- //
+// CHALLENGE INFO: ACE
+alloc(challenge_ace_score,500)
+
+// ---- INGAME ---- //
+// POWERUP: ACCURACY
+alloc(ingame_accuracy_pup,500)
+// LEVEL ACED!
+alloc(ingame_lvl_complete_ace,1000)
+
+// ---- STATS SCREEN ---- //
+// ACE TIME
+alloc(stats_acetime,500)
+
+/// ------------------------------- ///
 
 // ------ STRINGS ------ ///
 // ---- MAIN MENU ---- //
@@ -122,9 +146,12 @@ ext_desc:
 dw 'But you wouldnt dare anger Zhaka Mu... ',0
 
 // ---- OPTIONS ---- //
+// HI-RES ENABLE WARNING: NOT RECOMMENDED
+hires_enable_warning_notrec:
+dw 'Hi-Res mode is currently mandatory in order for Zuma',27,'s Revenge!',0A,'to load the ZRR graphical assets.',0A,'However, the game has detected that Hi-Res mode is not',0A,'compatible with your machine.',0A,'This is most likely a false alarm, and can be turned on.',0A,'%sAre you sure you want to enable Hi-Res mode?',0
 // HI-RES DISABLE WARNING
 hires_disable_warning:
-dw 'WARNING: DISABLING HI-RES MODE WILL BREAK THE MOD!',0A,'Zuma',27,'s Revenge! Rejuvenated is designed to be played',0A,'on 1920x1200. Disabling this will not only revert the',0A,'graphical changes, but will make some level chutes misplaced!',0A,'IF YOU ARE IN A CHALLENGE MODE OR IRON FROG GAME,',0A,'YOUR PROGRESS WILL BE LOST!',0A,0A,'If you are willing to port this mod to x600, please contact',0A,'me on Discord: CrushyGreenRen#1539.',0A,'Are you sure you want to disable Hi-Res mode?',0
+dw 'WARNING: DISABLING HI-RES MODE WILL BREAK THE MOD!',0A,'Zuma',27,'s Revenge! Rejuvenated is designed to be played',0A,'on 1920x1200. Disabling this will not only revert the',0A,'graphical changes, but will make some level chutes misplaced!',0A,0A,'If you are willing to port this mod to x600, please contact',0A,'me on Discord: CrushyGreenRen#1539.',0A,'%sAre you sure you want to disable Hi-Res mode?',0
 
 // ---- CHALLENGE ---- //
 // CHALLENGE INFO: ACE
@@ -135,6 +162,16 @@ dw 'Spt.:',0
 // POWERUP: ACCURACY
 ingame_accuracy_pup:
 dw 'SPEED SHOT',0
+// LEVEL ACED!
+ingame_lvl_complete_ace:
+dw 'Spirit Time Achieved!',0
+
+// ---- STATS SCREEN ---- //
+// ACE TIME
+stats_acetime:
+dw 'Spirit Time',0
+
+/// ------------------------------- ///
 
 // ------ CHANGE CODE ------ ///
 // ---- MAIN MENU ---- //
@@ -149,6 +186,9 @@ ZumasRevenge.exe+F14C1:
 push ext_desc
 
 // ---- OPTIONS ---- //
+// HI-RES ENABLE WARNING: NOT RECOMMENDED
+ZumasRevenge.exe+100196:
+push hires_enable_warning_notrec
 // HI-RES DISABLE WARNING
 ZumasRevenge.exe+100659:
 push hires_disable_warning
@@ -162,6 +202,16 @@ push challenge_ace_score
 // POWERUP: ACCURACY
 ZumasRevenge.exe+9960B:
 push ingame_accuracy_pup
+// LEVEL ACED!
+ZumasRevenge.exe+1A1EB:
+push ingame_lvl_complete_ace
+
+// ---- STATS SCREEN ---- //
+// ACE TIME
+ZumasRevenge.exe+26571:
+push stats_acetime
+
+/// ------------------------------- ///
 
 [DISABLE]
 // ------ DISABLE :( ------ ///
@@ -177,6 +227,9 @@ ZumasRevenge.exe+F14C1:
 push ZumasRevenge.exe+569828
 
 // ---- OPTIONS ---- //
+// HI-RES DISABLE WARNING: NOT RECOMMENDED
+ZumasRevenge.exe+100196:
+push ZumasRevenge.exe+56B3C0
 // HI-RES DISABLE WARNING
 ZumasRevenge.exe+100659:
 push ZumasRevenge.exe+56B720
@@ -190,6 +243,14 @@ push ZumasRevenge.exe+569AE0
 // POWERUP: ACCURACY
 ZumasRevenge.exe+9960B:
 push ZumasRevenge.exe+56422C
+// LEVEL ACED!
+ZumasRevenge.exe+1A1EB:
+push ZumasRevenge.exe+55F574
+
+// ---- STATS SCREEN ---- //
+// ACE TIME
+ZumasRevenge.exe+26571:
+push ZumasRevenge.exe+55FCB4
 </AssemblerScript>
         </CheatEntry>
       </CheatEntries>
@@ -259,49 +320,9 @@ lea esi,[eax+edx*2]
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
-  <LuaScript>[ENABLE]
-//code from here to '[DISABLE]' will be used to enable the cheat
-alloc(newmem,2048)
-label(returnhere)
-label(originalcode)
-label(exit)
-label(maloop)
+  <LuaScript>function UDF1_CECheckbox1Click(sender)
 
-newmem: //this is allocated memory, you have read,write,execute access
-//place your code here
+end
 
-originalcode:
-push edx // will be using it to multiple
-push ecx // will be using it for the loop
-xor edx,edx // clearing the register
-xor ecx,ecx // clearing the register
-maloop:
-add edx,#100 // value of each ball is 100? (# for decimal)
-add ecx,1 // used for loop
-cmp ecx,eax // our balls number are in eax
-jne maloop // jump not equal to balls count and keep adding
-mov esi,edx // end result is stored in esi
-pop ecx // pop like a gentleman
-pop edx // leave no pop inside you
-mov eax,[ebp+14] //don't care about that shit, leaving it intact justincase :p
-
-exit:
-jmp returnhere
-
-"ZumasRevenge.exe"+572E4:
-jmp newmem
-nop
-returnhere:
-
-
-
-
-[DISABLE]
-//code from here till the end of the code will be used to disable the cheat
-dealloc(newmem)
-"ZumasRevenge.exe"+572E4:
-mov eax,[ebp+14]
-lea esi,[eax+edx*2]
-//Alt: db 8B 45 14 8D 34 50
 </LuaScript>
 </CheatTable>
