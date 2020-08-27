@@ -1,5 +1,6 @@
 # Zuma's Revenge! Rejuvenated Cheat Table
 Cheat table for **Zuma's Revenge! Rejuvenated**, an upcoming ZR mod. Some contributions were made prior to this repo!
+[![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/jY8jsQK)
 
 This is licensed under the Unlicense License. https://choosealicense.com/licenses/unlicense/
 
