@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"// PLEASE PICK ONLY ONE!"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>800000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"// Intended for use in"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>800000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"// Zuma's Revenge! Rejuvenated,"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>800000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"// a Zuma's Revenge mod by"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>800000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"// CrushyGreenRen."</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>800000</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"popcapgame1.exe (PopCap DRM)"</Description>
+      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>0</ID>
+          <Description>"Base ball points to Console - PopCap DRM"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+label(maloop)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+push edx // will be using it to multiple
+push ecx // will be using it for the loop
+xor edx,edx // clearing the register
+xor ecx,ecx // clearing the register
+maloop:
+add edx,#200 // value of each ball is 100? (# for decimal)
+add ecx,1 // used for loop
+cmp ecx,eax // our balls number are in eax
+jne maloop // jump not equal to balls count and keep adding
+mov esi,edx // end result is stored in esi
+pop ecx // pop like a gentleman
+pop edx // leave no pop inside you
+mov eax,[ebp+14] //don't care about that shit, leaving it intact justincase :p
+
+exit:
+jmp returnhere
+
+"ZumasRevenge.exe"+572E4:
+jmp newmem
+nop
+returnhere:
+
+
+
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"ZumasRevenge.exe"+572E4:
+mov eax,[ebp+14]
+lea esi,[eax+edx*2]
+//Alt: db 8B 45 14 8D 34 50
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"String Changes - PopCap DRM"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(adv_desc,1000)
+alloc(chl_desc,1000)
+alloc(ext_desc,1000)
+alloc(hires_disable_warning,1000)
+alloc(challenge_ace_score,1000)
+alloc(ingame_accuracy_pup,1000)
+
+// ------ STRINGS ------ ///
+// ---- MAIN MENU ---- //
+// ADVENTURE MODE DESCRIPTION
+adv_desc:
+dw 'Explore and find out the mystery of the island!',0
+// CHALLENGE MODE DESCRIPTION
+chl_desc:
+dw 'Earn badges in this fast-paced mode.',0
+// EXIT DESCRIPTION
+ext_desc:
+dw 'But you wouldnt dare anger Zhaka Mu... ',0
+
+// ---- OPTIONS ---- //
+// HI-RES DISABLE WARNING
+hires_disable_warning:
+dw 'WARNING: DISABLING HI-RES MODE WILL BREAK THE MOD!',0A,'Zuma',27,'s Revenge! Rejuvenated is designed to be played',0A,'on 1920x1200. Disabling this will not only revert',0A,'the graphical changes, but will make some',0A,'level chutes broken!',0A,0A,'If you are willing to port this mod to x600, please contact',0A,'me on Discord: CrushyGreenRen#1539.',0
+
+// ---- CHALLENGE ---- //
+// CHALLENGE INFO: ACE
+challenge_ace_score:
+dw 'Spt.:',0
+
+// ---- INGAME ---- //
+// POWERUP: ACCURACY
+ingame_accuracy_pup:
+dw 'SPEED SHOT',0
+
+// ------ CHANGE CODE ------ ///
+// ---- MAIN MENU ---- //
+// ADVENTURE MODE DESCRIPTION
+ZumasRevenge.exe+F1122:
+push adv_desc
+// CHALLENGE MODE DESCRIPTION
+ZumasRevenge.exe+F11FA:
+push chl_desc
+// EXIT DESCRIPTION
+ZumasRevenge.exe+F14C1:
+push ext_desc
+
+// ---- OPTIONS ---- //
+// HI-RES DISABLE WARNING
+ZumasRevenge.exe+100659:
+push hires_disable_warning
+
+// ---- CHALLENGE ---- //
+// CHALLENGE INFO: ACE
+ZumasRevenge.exe+F325D:
+push challenge_ace_score
+
+// ---- INGAME ---- //
+// POWERUP: ACCURACY
+ZumasRevenge.exe+9960B:
+push ingame_accuracy_pup
+
+[DISABLE]
+// ------ DISABLE :( ------ ///
+// ---- MAIN MENU ---- //
+// ADVENTURE MODE DESCRIPTION
+ZumasRevenge.exe+F1122:
+push ZumasRevenge.exe+5696C0
+// CHALLENGE MODE DESCRIPTION
+ZumasRevenge.exe+F11FA:
+push ZumasRevenge.exe+569710
+// EXIT DESCRIPTION
+ZumasRevenge.exe+F14C1:
+push ZumasRevenge.exe+569828
+
+// ---- OPTIONS ---- //
+// HI-RES DISABLE WARNING
+ZumasRevenge.exe+100659:
+push ZumasRevenge.exe+56B720
+
+// ---- CHALLENGE ---- //
+// CHALLENGE INFO: ACE
+ZumasRevenge.exe+F325D:
+push ZumasRevenge.exe+569AE0
+
+// ---- INGAME ---- //
+// POWERUP: ACCURACY
+ZumasRevenge.exe+9960B:
+push ZumasRevenge.exe+56422C
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Steam Version"</Description>
+      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Base ball points to Console - Steam Version"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+label(maloop)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+push edx // will be using it to multiple
+push ecx // will be using it for the loop
+xor edx,edx // clearing the register
+xor ecx,ecx // clearing the register
+maloop:
+add edx,#200 // value of each ball is 100? (# for decimal)
+add ecx,1 // used for loop
+cmp ecx,eax // our balls number are in eax
+jne maloop // jump not equal to balls count and keep adding
+mov esi,edx // end result is stored in esi
+pop ecx // pop like a gentleman
+pop edx // leave no pop inside you
+mov eax,[ebp+14] //don't care about that shit, leaving it intact justincase :p
+
+exit:
+jmp returnhere
+
+"popcapgame1.exe"+57824:
+jmp newmem
+nop
+returnhere:
+
+
+
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"popcapgame1.exe"+57824:
+mov eax,[ebp+14]
+lea esi,[eax+edx*2]
+//Alt: db 8B 45 14 8D 34 50
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+label(maloop)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+push edx // will be using it to multiple
+push ecx // will be using it for the loop
+xor edx,edx // clearing the register
+xor ecx,ecx // clearing the register
+maloop:
+add edx,#100 // value of each ball is 100? (# for decimal)
+add ecx,1 // used for loop
+cmp ecx,eax // our balls number are in eax
+jne maloop // jump not equal to balls count and keep adding
+mov esi,edx // end result is stored in esi
+pop ecx // pop like a gentleman
+pop edx // leave no pop inside you
+mov eax,[ebp+14] //don't care about that shit, leaving it intact justincase :p
+
+exit:
+jmp returnhere
+
+"ZumasRevenge.exe"+572E4:
+jmp newmem
+nop
+returnhere:
+
+
+
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"ZumasRevenge.exe"+572E4:
+mov eax,[ebp+14]
+lea esi,[eax+edx*2]
+//Alt: db 8B 45 14 8D 34 50
+</LuaScript>
+</CheatTable>
