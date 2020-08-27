@@ -4,7 +4,7 @@ Cheat table for **Zuma's Revenge! Rejuvenated**, an upcoming ZR mod. Some contri
 This is licensed under the Unlicense License. https://choosealicense.com/licenses/unlicense/
 
 # IMPORTANT: BEFORE YOU POST A PULL REQUEST
-Please mention if it's for the **Steam Version**, the **PopCap DRM** or any other source you got the game from.
+Please mention if it's for the **Steam Version**, the **PopCap DRM** or any other source you got the game from, **but do not send a link**.
 If you are not sure, please mention that. The addresses are different in each version.
 
 # About the Mod
